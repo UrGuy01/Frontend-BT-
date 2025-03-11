@@ -51,8 +51,89 @@ console.log(sum(5, 3)); // Should return 8`,
         { input: [1, 2], expected: 3 },
         { input: [5, 3], expected: 8 }
       ]
+    },
+    {
+      type: 'coding',
+      question: 'Write a function that checks if a string is a palindrome (reads the same forwards and backwards). Ignore case and special characters.',
+      language: 'javascript',
+      template: `function isPalindrome(str) {
+  // Write your code here
+  // Example: "A man, a plan, a canal: Panama" should return true
+  
+}
+
+// Test cases
+console.log(isPalindrome("A man, a plan, a canal: Panama")); // Should return true
+console.log(isPalindrome("race a car")); // Should return false
+console.log(isPalindrome("Was it a car or a cat I saw?")); // Should return true`,
+      testCases: [
+        { input: ["A man, a plan, a canal: Panama"], expected: true },
+        { input: ["race a car"], expected: false },
+        { input: ["Was it a car or a cat I saw?"], expected: true }
+      ]
+    },
+    {
+      type: 'coding',
+      question: 'Write a function that finds the missing number in an array containing numbers from 1 to n with one number missing.',
+      language: 'javascript',
+      template: `function findMissingNumber(arr) {
+  // Write your code here
+  // Example: [1, 3, 4, 5] should return 2
+  
+}
+
+// Test cases
+console.log(findMissingNumber([1, 3, 4, 5])); // Should return 2
+console.log(findMissingNumber([1, 2, 4, 5, 6])); // Should return 3
+console.log(findMissingNumber([1, 2, 3, 5, 6, 7])); // Should return 4`,
+      testCases: [
+        { input: [[1, 3, 4, 5]], expected: 2 },
+        { input: [[1, 2, 4, 5, 6]], expected: 3 },
+        { input: [[1, 2, 3, 5, 6, 7]], expected: 4 }
+      ]
+    },
+    {
+      type: 'coding',
+      question: 'Write a function that implements a basic calculator to evaluate a simple arithmetic expression with +, -, *, / operators.',
+      language: 'javascript',
+      template: `function calculate(expression) {
+  // Write your code here
+  // Example: "2 + 3 * 4" should return 14
+  // Handle basic operator precedence (* and / before + and -)
+  
+}
+
+// Test cases
+console.log(calculate("2 + 3 * 4")); // Should return 14
+console.log(calculate("10 - 2 * 3")); // Should return 4
+console.log(calculate("20 / 4 + 2")); // Should return 7`,
+      testCases: [
+        { input: ["2 + 3 * 4"], expected: 14 },
+        { input: ["10 - 2 * 3"], expected: 4 },
+        { input: ["20 / 4 + 2"], expected: 7 }
+      ]
+    },
+    {
+      type: 'coding',
+      question: 'Write a function that finds the longest common prefix among an array of strings.',
+      language: 'javascript',
+      template: `function longestCommonPrefix(strs) {
+  // Write your code here
+  // Example: ["flower", "flow", "flight"] should return "fl"
+  // If there is no common prefix, return ""
+  
+}
+
+// Test cases
+console.log(longestCommonPrefix(["flower", "flow", "flight"])); // Should return "fl"
+console.log(longestCommonPrefix(["dog", "racecar", "car"])); // Should return ""
+console.log(longestCommonPrefix(["interspecies", "interstellar", "interstate"])); // Should return "inters"`,
+      testCases: [
+        { input: [["flower", "flow", "flight"]], expected: "fl" },
+        { input: [["dog", "racecar", "car"]], expected: "" },
+        { input: [["interspecies", "interstellar", "interstate"]], expected: "inters" }
+      ]
     }
-    // Add more questions as needed
   ];
 
   // Handle clicks outside modals
