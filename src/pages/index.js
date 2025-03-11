@@ -24,9 +24,6 @@ export default function Home() {
   const signupPasswordRef = useRef(null);
   const inactivityTimerRef = useRef(null);
 
-  // Add state for code answers
-  const [codeAnswers, setCodeAnswers] = useState({});
-
   // Sample questions
   const questions = [
     {
@@ -135,6 +132,18 @@ console.log(longestCommonPrefix(["interspecies", "interstellar", "interstate"]))
       ]
     }
   ];
+
+  // Add state for code answers with proper initialization
+  const [codeAnswers, setCodeAnswers] = useState(() => {
+    // Initialize with templates for each coding question
+    const initialAnswers = {};
+    questions.forEach((question, index) => {
+      if (question.type === 'coding') {
+        initialAnswers[index] = question.template;
+      }
+    });
+    return initialAnswers;
+  });
 
   // Handle clicks outside modals
   useEffect(() => {
@@ -251,11 +260,18 @@ console.log(longestCommonPrefix(["interspecies", "interstellar", "interstate"]))
   const submitExam = () => {
     // Show confirmation dialog
     if (window.confirm('Are you sure you want to submit your exam?')) {
-      // First cleanup resources (including editor)
+      // First hide editor to trigger cleanup
+      setShowEditor(false);
+      
+      // Clear any existing timers and event listeners
       cleanupResources();
       
-      // Then hide editor and show completion
-      setShowEditor(false);
+      // Reset Monaco Environment
+      if (typeof window !== 'undefined' && window.MonacoEnvironment) {
+        window.MonacoEnvironment = undefined;
+      }
+      
+      // Show completion message
       setShowCompletionMessage(true);
       
       // Redirect to main page after a short delay
@@ -267,6 +283,7 @@ console.log(longestCommonPrefix(["interspecies", "interstellar", "interstate"]))
         setTime(7200);
         setTabSwitchCount(0);
         setEndTime(null);
+        setCodeAnswers({});
         
         // Show success message
         alert('Exam submitted successfully!');
@@ -379,7 +396,7 @@ console.log(longestCommonPrefix(["interspecies", "interstellar", "interstate"]))
     }, 60000); // 1 minute
   };
 
-  // Handle code change
+  // Handle code change with proper state management
   const handleCodeChange = (questionIndex, newCode) => {
     setCodeAnswers(prev => ({
       ...prev,
@@ -496,8 +513,9 @@ console.log(longestCommonPrefix(["interspecies", "interstellar", "interstate"]))
                       <div className="monaco-editor">
                         {showEditor && (
                           <MonacoEditor 
+                            key={`editor-${currentQuestion}`}
                             language={questions[currentQuestion]?.language}
-                            value={codeAnswers[currentQuestion] || questions[currentQuestion]?.template}
+                            value={codeAnswers[currentQuestion]}
                             onChange={(newValue) => handleCodeChange(currentQuestion, newValue)}
                           />
                         )}
